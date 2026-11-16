@@ -1,0 +1,3130 @@
+{
+ "meta": {
+  "dataset": "UCI 395 (Isenkul et al. 2014), Wacom tablet + pen; 15 controls, 62 Parkinson's; no essential tremor, no phone recordings",
+  "n_drawings": 148,
+  "n_trials": 18190,
+  "runtime_s": 68.4,
+  "trial_time_s": 50.0,
+  "workers": 12,
+  "metrics_py_sha1": "dab56400cff0d0943e6cc6daf4f45de7961be512",
+  "citations": {
+   "ios_60hz_cap": "https://bugs.webkit.org/show_bug.cgi?id=261961",
+   "elble_2017": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5618112/",
+   "longardner_2024": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11324214/"
+  }
+ },
+ "config": {
+  "seed": 20261204,
+  "lift_gap_ms": 50.0,
+  "freqs_hz": "k + U(-0.5,0.5) clipped to [4,12], k in [4, 5, 6, 7, 8, 9, 10, 11, 12]",
+  "amplitudes_pp_mm": [
+   0.25,
+   0.5,
+   1.0,
+   2.0,
+   4.0
+  ],
+  "geometries": [
+   "linear",
+   "radial",
+   "elliptical"
+  ],
+  "envelope": "1 + 0.3 sin(2 pi fe t + psi), fe ~ U(0.1,0.3) Hz; true pp = pp x median(envelope)",
+  "e1_reps": 2,
+  "rates_hz": [
+   60.0,
+   45.0,
+   30.0,
+   24.0,
+   20.0
+  ],
+  "rate_amps_pp_mm": [
+   1.0,
+   2.0
+  ],
+  "jitter_ms": 2.0,
+  "quant_mm": 0.16,
+  "compress": [
+   1.0,
+   1.5,
+   2.0,
+   3.0,
+   4.0
+  ],
+  "e4_freq_hz": 5.0,
+  "e4_pp_mm": 1.0,
+  "n_boot": 1000,
+  "bars": {
+   "freq_tol_hz": 0.5,
+   "freq_share": 0.9,
+   "amp_tol": 0.25,
+   "amp_share": 0.9,
+   "applies_to": "pp >= 1 mm, 4-12 Hz",
+   "reported_frequency": "a trial succeeds only if prominence >= MIN_PROMINENCE (the product shows a frequency) AND |f - f_true| <= 0.5 Hz"
+  },
+  "mm_per_px_assumed": 0.204,
+  "split": {
+   "control": {
+    "dev": [
+     "C_0001",
+     "C_0002",
+     "C_0004",
+     "C_0005",
+     "C_0008",
+     "C_0014",
+     "C_0015"
+    ],
+    "heldout": [
+     "C_0003",
+     "C_0006",
+     "C_0007",
+     "C_0009",
+     "C_0010",
+     "C_0011",
+     "C_0012",
+     "C_0013"
+    ]
+   },
+   "parkinson": {
+    "dev": [
+     "H_P000-0001",
+     "H_P000-0002",
+     "H_P000-0007",
+     "H_P000-0008",
+     "H_P000-0012",
+     "H_P000-0013",
+     "H_P000-0016",
+     "H_P000-0019",
+     "H_P000-0022",
+     "H_P000-0023",
+     "H_P000-0024",
+     "H_P000-0029",
+     "H_P000-0030",
+     "H_P000-0032",
+     "H_P000-0037",
+     "H_P000-0039",
+     "H_P000-0040",
+     "H_p000-0018",
+     "P_02100001",
+     "P_05060003",
+     "P_11120004",
+     "P_11120005",
+     "P_23100002",
+     "P_23100003",
+     "P_26060001",
+     "P_26060002",
+     "P_26060007",
+     "P_27110001",
+     "P_27110003",
+     "P_30100002"
+    ],
+    "heldout": [
+     "H_P000-0003",
+     "H_P000-0004",
+     "H_P000-0011",
+     "H_P000-0014",
+     "H_P000-0015",
+     "H_P000-0020",
+     "H_P000-0021",
+     "H_P000-0025",
+     "H_P000-0031",
+     "H_P000-0033",
+     "H_P000-0034",
+     "H_P000-0035",
+     "H_P000-0036",
+     "H_p000-0010",
+     "H_p000-0028",
+     "H_p000-0041",
+     "H_p000-0042",
+     "H_p000-0043",
+     "P_02100002",
+     "P_05060004",
+     "P_09100001",
+     "P_09100003",
+     "P_09100005",
+     "P_11120003",
+     "P_12060001",
+     "P_12060002",
+     "P_16100003",
+     "P_16100004",
+     "P_26060003",
+     "P_26060006",
+     "P_30100001"
+    ]
+   }
+  },
+  "quick": false
+ },
+ "thresholds": {
+  "MIN_PROMINENCE": {
+   "old": 4.0,
+   "new": 9.5,
+   "in_metrics_py": 9.5,
+   "rule": "smallest value on a 0.25 grid with <=5% of dev un-injected control drawings at or above it",
+   "dev_control_prominences": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.82,
+    2.1631,
+    3.3882,
+    3.6233,
+    5.36,
+    5.5967,
+    6.0082,
+    7.0916,
+    9.2761
+   ]
+  },
+  "MIN_RHYTHM_PP_MM": {
+   "old": 0.0,
+   "new": 0.45,
+   "in_metrics_py": 0.45,
+   "rule": "1.25 x the largest pp amplitude of any dev un-injected control drawing, rounded up to 0.05 mm (mm via the assumed 0.204 mm/px tablet scale)",
+   "dev_control_max_amp_mm": 0.3256
+  },
+  "GATE.min_rate_hz": {
+   "old": 30.0,
+   "new": 42.0,
+   "in_metrics_py": 42.0,
+   "rule": "lowest simulated rate at which both E1 bars hold on dev (and at every higher tested rate), x0.95 for timestamp noise in the measured rate",
+   "validated_rate_hz": 45.0,
+   "dev_bars_by_rate": {
+    "60.0": {
+     "n": 756,
+     "freq_pct": 99.8677,
+     "amp_pct": 100.0,
+     "freq_pass": true,
+     "amp_pass": true
+    },
+    "45.0": {
+     "n": 756,
+     "freq_pct": 100.0,
+     "amp_pct": 99.7354,
+     "freq_pass": true,
+     "amp_pass": true
+    },
+    "30.0": {
+     "n": 756,
+     "freq_pct": 99.8677,
+     "amp_pct": 61.5079,
+     "freq_pass": true,
+     "amp_pass": false
+    },
+    "24.0": {
+     "n": 756,
+     "freq_pct": 99.4709,
+     "amp_pct": 42.5926,
+     "freq_pass": true,
+     "amp_pass": false
+    },
+    "20.0": {
+     "n": 756,
+     "freq_pct": 75.1323,
+     "amp_pct": 29.7619,
+     "freq_pass": false,
+     "amp_pass": false
+    }
+   }
+  },
+  "GATE.max_template_dev_mm": {
+   "old": 10.0,
+   "new": 1.8,
+   "in_metrics_py": 1.8,
+   "rule": "99th percentile of template_dev on synthetic honest dev traces, rounded up to 0.1 mm. SYNTHETIC ONLY: no UCI drawing has a template; untested on real phone drawings"
+  },
+  "GATE.max_speed_mm_s": {
+   "old": 60.0,
+   "new": 40.0,
+   "in_metrics_py": 40.0,
+   "rule": "largest S such that dev false rhythm (prominence AND amplitude rules) among time-compressed un-injected control drawings passing every other gate check, with speed <= S' for every S' <= S, stays <= 5%; capped at the fastest such drawing; 5 mm/s grid",
+   "first_run_value": 30.0,
+   "first_run_rule": "20 mm/s windows of injected+un-injected trials, prominence rule only (rejected 51-57% of PD drawings; superseded on orchestrator instruction)",
+   "dev_curve": [
+    {
+     "max_speed": 10.0,
+     "n": 1,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 15.0,
+     "n": 4,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 20.0,
+     "n": 10,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 25.0,
+     "n": 17,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 30.0,
+     "n": 25,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 35.0,
+     "n": 32,
+     "false_rhythm_pct": 3.125
+    },
+    {
+     "max_speed": 40.0,
+     "n": 36,
+     "false_rhythm_pct": 2.7778
+    },
+    {
+     "max_speed": 45.0,
+     "n": 41,
+     "false_rhythm_pct": 9.7561
+    }
+   ],
+   "unconditional_value": 40.0,
+   "unconditional_dev_curve": [
+    {
+     "max_speed": 10.0,
+     "n": 1,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 15.0,
+     "n": 4,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 20.0,
+     "n": 10,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 25.0,
+     "n": 17,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 30.0,
+     "n": 25,
+     "false_rhythm_pct": 0.0
+    },
+    {
+     "max_speed": 35.0,
+     "n": 32,
+     "false_rhythm_pct": 3.125
+    },
+    {
+     "max_speed": 40.0,
+     "n": 36,
+     "false_rhythm_pct": 2.7778
+    },
+    {
+     "max_speed": 45.0,
+     "n": 41,
+     "false_rhythm_pct": 9.7561
+    }
+   ]
+  }
+ },
+ "experiments": {
+  "E1_injection_recovery": {
+   "dev": {
+    "by_geometry_amplitude": {
+     "linear": {
+      "0.25mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 0.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0194,
+       "detection_pct": 0.0,
+       "amp_ratio_median": 1.2532,
+       "amp_ratio_iqr": [
+        1.1919,
+        1.389
+       ],
+       "amp_within_25pct_pct": 48.0159
+      },
+      "0.5mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0192,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0601,
+       "amp_ratio_iqr": [
+        1.0317,
+        1.1017
+       ],
+       "amp_within_25pct_pct": 99.2063
+      },
+      "1mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0179,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0039,
+       "amp_ratio_iqr": [
+        0.987,
+        1.0247
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0159,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.994,
+       "amp_ratio_iqr": [
+        0.9756,
+        1.0097
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0185,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9883,
+       "amp_ratio_iqr": [
+        0.9739,
+        1.004
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     },
+     "radial": {
+      "0.25mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 0.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0171,
+       "detection_pct": 0.0,
+       "amp_ratio_median": 1.2132,
+       "amp_ratio_iqr": [
+        1.1654,
+        1.3664
+       ],
+       "amp_within_25pct_pct": 62.6984
+      },
+      "0.5mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0105,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0475,
+       "amp_ratio_iqr": [
+        1.0134,
+        1.0857
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "1mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 99.6032,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0099,
+       "detection_pct": 99.6032,
+       "amp_ratio_median": 0.991,
+       "amp_ratio_iqr": [
+        0.9719,
+        1.0075
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0089,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9797,
+       "amp_ratio_iqr": [
+        0.9593,
+        1.0002
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0104,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9772,
+       "amp_ratio_iqr": [
+        0.9578,
+        0.9951
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     },
+     "elliptical": {
+      "0.25mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 0.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.016,
+       "detection_pct": 0.0,
+       "amp_ratio_median": 1.2886,
+       "amp_ratio_iqr": [
+        1.2134,
+        1.4348
+       ],
+       "amp_within_25pct_pct": 36.9048
+      },
+      "0.5mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0188,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0885,
+       "amp_ratio_iqr": [
+        1.0506,
+        1.1335
+       ],
+       "amp_within_25pct_pct": 98.0159
+      },
+      "1mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0179,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.012,
+       "amp_ratio_iqr": [
+        0.988,
+        1.0357
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.017,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9946,
+       "amp_ratio_iqr": [
+        0.9759,
+        1.0109
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 252,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0187,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.989,
+       "amp_ratio_iqr": [
+        0.9735,
+        1.0056
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     }
+    },
+    "bars_pp_ge_1mm": {
+     "linear": {
+      "n": 756,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "radial": {
+      "n": 756,
+      "freq_pct": 99.8677,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "elliptical": {
+      "n": 756,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     }
+    },
+    "bars_pp_ge_1mm_all_geometries": {
+     "n": 2268,
+     "freq_pct": 99.9559,
+     "amp_pct": 100.0,
+     "freq_pass": true,
+     "amp_pass": true
+    },
+    "by_frequency_pp_ge_1mm": {
+     "4": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 99.6032,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0052,
+      "detection_pct": 99.6032,
+      "amp_ratio_median": 0.9998,
+      "amp_ratio_iqr": [
+       0.9825,
+       1.0184
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "5": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0172,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.994,
+      "amp_ratio_iqr": [
+       0.9779,
+       1.0108
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "6": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0174,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9975,
+      "amp_ratio_iqr": [
+       0.9802,
+       1.0145
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "7": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0159,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9939,
+      "amp_ratio_iqr": [
+       0.9743,
+       1.0149
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "8": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0174,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9957,
+      "amp_ratio_iqr": [
+       0.9805,
+       1.0124
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "9": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0177,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9892,
+      "amp_ratio_iqr": [
+       0.9719,
+       1.0084
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "10": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.017,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.989,
+      "amp_ratio_iqr": [
+       0.9694,
+       1.0064
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "11": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0152,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9874,
+      "amp_ratio_iqr": [
+       0.9687,
+       1.0043
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "12": {
+      "n": 252,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0026,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.978,
+      "amp_ratio_iqr": [
+       0.9619,
+       0.9951
+      ],
+      "amp_within_25pct_pct": 100.0
+     }
+    },
+    "n_drawings": 14
+   },
+   "heldout": {
+    "by_geometry_amplitude": {
+     "linear": {
+      "0.25mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 3.125,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0189,
+       "detection_pct": 3.125,
+       "amp_ratio_median": 1.2126,
+       "amp_ratio_iqr": [
+        1.1662,
+        1.3374
+       ],
+       "amp_within_25pct_pct": 63.1944
+      },
+      "0.5mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0188,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.049,
+       "amp_ratio_iqr": [
+        1.0271,
+        1.0958
+       ],
+       "amp_within_25pct_pct": 96.875
+      },
+      "1mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0176,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0025,
+       "amp_ratio_iqr": [
+        0.9847,
+        1.0194
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0193,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.995,
+       "amp_ratio_iqr": [
+        0.9808,
+        1.0107
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0184,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9863,
+       "amp_ratio_iqr": [
+        0.9732,
+        1.0034
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     },
+     "radial": {
+      "0.25mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 1.7361,
+       "freq_within_0p5_pct_any_prominence": 97.2222,
+       "median_abs_freq_err_hz": 0.017,
+       "detection_pct": 1.7361,
+       "amp_ratio_median": 1.1908,
+       "amp_ratio_iqr": [
+        1.1459,
+        1.3355
+       ],
+       "amp_within_25pct_pct": 68.0556
+      },
+      "0.5mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 99.3056,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0145,
+       "detection_pct": 99.3056,
+       "amp_ratio_median": 1.0387,
+       "amp_ratio_iqr": [
+        1.0172,
+        1.0722
+       ],
+       "amp_within_25pct_pct": 99.6528
+      },
+      "1mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0129,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9947,
+       "amp_ratio_iqr": [
+        0.9804,
+        1.0123
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0115,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9812,
+       "amp_ratio_iqr": [
+        0.9654,
+        0.9955
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0108,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9795,
+       "amp_ratio_iqr": [
+        0.9637,
+        0.9949
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     },
+     "elliptical": {
+      "0.25mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 5.9028,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0181,
+       "detection_pct": 5.9028,
+       "amp_ratio_median": 1.2505,
+       "amp_ratio_iqr": [
+        1.1909,
+        1.3952
+       ],
+       "amp_within_25pct_pct": 49.6528
+      },
+      "0.5mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0199,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0734,
+       "amp_ratio_iqr": [
+        1.0384,
+        1.1264
+       ],
+       "amp_within_25pct_pct": 93.4028
+      },
+      "1mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0193,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 1.0096,
+       "amp_ratio_iqr": [
+        0.9909,
+        1.0285
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "2mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.0174,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.993,
+       "amp_ratio_iqr": [
+        0.9783,
+        1.0109
+       ],
+       "amp_within_25pct_pct": 100.0
+      },
+      "4mm": {
+       "n": 288,
+       "freq_within_0p5_pct_reported": 100.0,
+       "freq_within_0p5_pct_any_prominence": 100.0,
+       "median_abs_freq_err_hz": 0.018,
+       "detection_pct": 100.0,
+       "amp_ratio_median": 0.9904,
+       "amp_ratio_iqr": [
+        0.9775,
+        1.0009
+       ],
+       "amp_within_25pct_pct": 100.0
+      }
+     }
+    },
+    "bars_pp_ge_1mm": {
+     "linear": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "radial": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "elliptical": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     }
+    },
+    "bars_pp_ge_1mm_all_geometries": {
+     "n": 2592,
+     "freq_pct": 100.0,
+     "amp_pct": 100.0,
+     "freq_pass": true,
+     "amp_pass": true
+    },
+    "by_frequency_pp_ge_1mm": {
+     "4": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0039,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0029,
+      "amp_ratio_iqr": [
+       0.987,
+       1.0206
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "5": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0192,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9938,
+      "amp_ratio_iqr": [
+       0.9802,
+       1.0131
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "6": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0206,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.998,
+      "amp_ratio_iqr": [
+       0.9831,
+       1.0161
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "7": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0186,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9954,
+      "amp_ratio_iqr": [
+       0.9814,
+       1.0092
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "8": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0186,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9941,
+      "amp_ratio_iqr": [
+       0.9805,
+       1.008
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "9": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0167,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9907,
+      "amp_ratio_iqr": [
+       0.9766,
+       1.0094
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "10": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0176,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9892,
+      "amp_ratio_iqr": [
+       0.9738,
+       1.003
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "11": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0174,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.983,
+      "amp_ratio_iqr": [
+       0.9696,
+       0.997
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "12": {
+      "n": 288,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0033,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9783,
+      "amp_ratio_iqr": [
+       0.9652,
+       0.992
+      ],
+      "amp_within_25pct_pct": 100.0
+     }
+    },
+    "n_drawings": 16
+   }
+  },
+  "E2_specificity": {
+   "MIN_PROMINENCE": 9.5,
+   "MIN_RHYTHM_PP_MM": 0.45,
+   "old": 4.0,
+   "dev": {
+    "n_drawings": 14,
+    "false_rhythm_pct_new": 0.0,
+    "false_rhythm_n_new": 0,
+    "false_rhythm_n_prominence_only": 0,
+    "false_rhythm_pct_old": 35.7143,
+    "max_prominence": 9.2761,
+    "false_rhythm_freqs_hz": [],
+    "false_rhythm_pct_sim60": 0.0,
+    "n_sim60": 42,
+    "detection_cost_by_amplitude": {
+     "0.25mm": {
+      "detect_pct_old": 99.7354,
+      "detect_pct_prominence_only": 97.4868,
+      "detect_pct_new": 0.0
+     },
+     "0.5mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     },
+     "1mm": {
+      "detect_pct_old": 99.8677,
+      "detect_pct_prominence_only": 99.8677,
+      "detect_pct_new": 99.8677
+     },
+     "2mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     },
+     "4mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     }
+    }
+   },
+   "heldout": {
+    "n_drawings": 16,
+    "false_rhythm_pct_new": 0.0,
+    "false_rhythm_n_new": 0,
+    "false_rhythm_n_prominence_only": 1,
+    "false_rhythm_pct_old": 25.0,
+    "max_prominence": 10.9873,
+    "false_rhythm_freqs_hz": [],
+    "false_rhythm_pct_sim60": 0.0,
+    "n_sim60": 48,
+    "detection_cost_by_amplitude": {
+     "0.25mm": {
+      "detect_pct_old": 99.0741,
+      "detect_pct_prominence_only": 97.8009,
+      "detect_pct_new": 3.588
+     },
+     "0.5mm": {
+      "detect_pct_old": 99.7685,
+      "detect_pct_prominence_only": 99.7685,
+      "detect_pct_new": 99.7685
+     },
+     "1mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     },
+     "2mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     },
+     "4mm": {
+      "detect_pct_old": 100.0,
+      "detect_pct_prominence_only": 100.0,
+      "detect_pct_new": 100.0
+     }
+    }
+   }
+  },
+  "E10_template_gate_synthetic": {
+   "label": "synthetic phone-like traces over the phone template (a=4 mm, b=26/(6 pi) mm/rad, 3 turns): honest = template + constant offset U(-1,1) mm + slow radial wander SD U(0,1.5) mm (<0.6 Hz) + tremor pp U(0,4) mm at U(4,12) Hz, 15% traced from the outer end; 60 Hz, +-2 ms jitter, 0.16 mm quantisation. The honest-trace error model is an assumption, not measured on people.",
+   "threshold_mm": 1.8,
+   "dev": {
+    "honest": {
+     "n": 300,
+     "template_dev_median_mm": 0.9929,
+     "template_dev_p99_mm": 1.7116,
+     "off_template_pct": 0.3333,
+     "any_template_gate_pct": 0.3333,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "scribble": {
+     "n": 60,
+     "template_dev_median_mm": 7.1005,
+     "template_dev_p99_mm": 19.5855,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 10.0
+    },
+    "concentric_circles": {
+     "n": 60,
+     "template_dev_median_mm": 5.452,
+     "template_dev_p99_mm": 9.0187,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "off_centre_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 4.8578,
+     "template_dev_p99_mm": 7.0404,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "reversed_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 14.5045,
+     "template_dev_p99_mm": 15.0432,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "wrong_pitch_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 4.4864,
+     "template_dev_p99_mm": 5.9014,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    }
+   },
+   "heldout": {
+    "honest": {
+     "n": 300,
+     "template_dev_median_mm": 0.961,
+     "template_dev_p99_mm": 1.8008,
+     "off_template_pct": 1.0,
+     "any_template_gate_pct": 1.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "scribble": {
+     "n": 60,
+     "template_dev_median_mm": 7.2719,
+     "template_dev_p99_mm": 16.4081,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 1.6667
+    },
+    "concentric_circles": {
+     "n": 60,
+     "template_dev_median_mm": 5.3904,
+     "template_dev_p99_mm": 11.3591,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "off_centre_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 4.7258,
+     "template_dev_p99_mm": 6.9084,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "reversed_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 14.624,
+     "template_dev_p99_mm": 15.2182,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    },
+    "wrong_pitch_spiral": {
+     "n": 60,
+     "template_dev_median_mm": 4.4745,
+     "template_dev_p99_mm": 5.123,
+     "off_template_pct": 100.0,
+     "any_template_gate_pct": 100.0,
+     "old_nearest_arm_off_template_pct": 0.0
+    }
+   }
+  },
+  "E3_phone_sampling": {
+   "label": "simulated phone sampling (uniform resample + \u00b12 ms jitter + 0.16 mm quantisation), not a phone",
+   "min_rate_hz": 42.0,
+   "60": {
+    "dev": {
+     "bars_pp_ge_1mm": {
+      "n": 756,
+      "freq_pct": 99.8677,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "radial": {
+       "n": 252,
+       "freq_pct": 99.6032,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "elliptical": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 756,
+      "freq_within_0p5_pct_reported": 99.8677,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0154,
+      "detection_pct": 99.8677,
+      "amp_ratio_median": 0.9489,
+      "amp_ratio_iqr": [
+       0.9137,
+       0.9829
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "freq_pct_by_band": {
+      "4-6": 99.6032,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 59.9997,
+     "gate_abstains_low_rate_pct": 0.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 42
+    },
+    "heldout": {
+     "bars_pp_ge_1mm": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 100.0,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "radial": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "elliptical": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 864,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0164,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.953,
+      "amp_ratio_iqr": [
+       0.9167,
+       0.9808
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 60.0001,
+     "gate_abstains_low_rate_pct": 0.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 48
+    }
+   },
+   "45": {
+    "dev": {
+     "bars_pp_ge_1mm": {
+      "n": 756,
+      "freq_pct": 100.0,
+      "amp_pct": 99.7354,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "radial": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 99.6032,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "elliptical": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 99.6032,
+       "freq_pass": true,
+       "amp_pass": true
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 756,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0147,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9086,
+      "amp_ratio_iqr": [
+       0.8536,
+       0.957
+      ],
+      "amp_within_25pct_pct": 99.7354
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 45.0,
+     "gate_abstains_low_rate_pct": 0.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 42
+    },
+    "heldout": {
+     "bars_pp_ge_1mm": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 99.7685,
+      "freq_pass": true,
+      "amp_pass": true
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "radial": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 99.3056,
+       "freq_pass": true,
+       "amp_pass": true
+      },
+      "elliptical": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 100.0,
+       "freq_pass": true,
+       "amp_pass": true
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 864,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.016,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.9045,
+      "amp_ratio_iqr": [
+       0.8585,
+       0.9549
+      ],
+      "amp_within_25pct_pct": 99.7685
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 45.0002,
+     "gate_abstains_low_rate_pct": 0.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 48
+    }
+   },
+   "30": {
+    "dev": {
+     "bars_pp_ge_1mm": {
+      "n": 756,
+      "freq_pct": 99.8677,
+      "amp_pct": 61.5079,
+      "freq_pass": true,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 60.3175,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 252,
+       "freq_pct": 99.6032,
+       "amp_pct": 61.9048,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 62.3016,
+       "freq_pass": true,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 756,
+      "freq_within_0p5_pct_reported": 99.8677,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0146,
+      "detection_pct": 99.8677,
+      "amp_ratio_median": 0.8011,
+      "amp_ratio_iqr": [
+       0.6811,
+       0.8922
+      ],
+      "amp_within_25pct_pct": 61.5079
+     },
+     "freq_pct_by_band": {
+      "4-6": 99.6032,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 29.9999,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 42
+    },
+    "heldout": {
+     "bars_pp_ge_1mm": {
+      "n": 864,
+      "freq_pct": 100.0,
+      "amp_pct": 61.2269,
+      "freq_pass": true,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 61.1111,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 59.0278,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 63.5417,
+       "freq_pass": true,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 864,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0169,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 0.8069,
+      "amp_ratio_iqr": [
+       0.6826,
+       0.8928
+      ],
+      "amp_within_25pct_pct": 61.2269
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 100.0
+     },
+     "measured_rate_median_hz": 30.0,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 48
+    }
+   },
+   "24": {
+    "dev": {
+     "bars_pp_ge_1mm": {
+      "n": 756,
+      "freq_pct": 99.4709,
+      "amp_pct": 42.5926,
+      "freq_pass": true,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 252,
+       "freq_pct": 98.8095,
+       "amp_pct": 42.4603,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 252,
+       "freq_pct": 99.6032,
+       "amp_pct": 40.4762,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 252,
+       "freq_pct": 100.0,
+       "amp_pct": 44.8413,
+       "freq_pass": true,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 756,
+      "freq_within_0p5_pct_reported": 99.4709,
+      "freq_within_0p5_pct_any_prominence": 99.8677,
+      "median_abs_freq_err_hz": 0.0171,
+      "detection_pct": 99.4709,
+      "amp_ratio_median": 0.7143,
+      "amp_ratio_iqr": [
+       0.5924,
+       0.8334
+      ],
+      "amp_within_25pct_pct": 42.5926
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 98.4127
+     },
+     "measured_rate_median_hz": 24.0001,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 42
+    },
+    "heldout": {
+     "bars_pp_ge_1mm": {
+      "n": 864,
+      "freq_pct": 99.1898,
+      "amp_pct": 44.213,
+      "freq_pass": true,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 288,
+       "freq_pct": 99.6528,
+       "amp_pct": 45.4861,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 288,
+       "freq_pct": 97.9167,
+       "amp_pct": 41.3194,
+       "freq_pass": true,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 288,
+       "freq_pct": 100.0,
+       "amp_pct": 45.8333,
+       "freq_pass": true,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 864,
+      "freq_within_0p5_pct_reported": 99.1898,
+      "freq_within_0p5_pct_any_prominence": 99.8843,
+      "median_abs_freq_err_hz": 0.0179,
+      "detection_pct": 99.1898,
+      "amp_ratio_median": 0.7224,
+      "amp_ratio_iqr": [
+       0.5864,
+       0.8341
+      ],
+      "amp_within_25pct_pct": 44.213
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 97.5694
+     },
+     "measured_rate_median_hz": 24.0002,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 48
+    }
+   },
+   "20": {
+    "dev": {
+     "bars_pp_ge_1mm": {
+      "n": 756,
+      "freq_pct": 75.1323,
+      "amp_pct": 29.7619,
+      "freq_pass": false,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 252,
+       "freq_pct": 75.0,
+       "amp_pct": 27.7778,
+       "freq_pass": false,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 252,
+       "freq_pct": 75.0,
+       "amp_pct": 28.9683,
+       "freq_pass": false,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 252,
+       "freq_pct": 75.3968,
+       "amp_pct": 32.5397,
+       "freq_pass": false,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 756,
+      "freq_within_0p5_pct_reported": 75.1323,
+      "freq_within_0p5_pct_any_prominence": 75.2646,
+      "median_abs_freq_err_hz": 0.0248,
+      "detection_pct": 99.7354,
+      "amp_ratio_median": 0.6706,
+      "amp_ratio_iqr": [
+       0.6168,
+       0.777
+      ],
+      "amp_within_25pct_pct": 29.7619
+     },
+     "freq_pct_by_band": {
+      "4-6": 99.6032,
+      "7-9": 100.0,
+      "10-12": 25.7937
+     },
+     "measured_rate_median_hz": 19.9999,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 42
+    },
+    "heldout": {
+     "bars_pp_ge_1mm": {
+      "n": 864,
+      "freq_pct": 74.8843,
+      "amp_pct": 29.0509,
+      "freq_pass": false,
+      "amp_pass": false
+     },
+     "by_geometry": {
+      "linear": {
+       "n": 288,
+       "freq_pct": 74.6528,
+       "amp_pct": 29.1667,
+       "freq_pass": false,
+       "amp_pass": false
+      },
+      "radial": {
+       "n": 288,
+       "freq_pct": 75.0,
+       "amp_pct": 24.3056,
+       "freq_pass": false,
+       "amp_pass": false
+      },
+      "elliptical": {
+       "n": 288,
+       "freq_pct": 75.0,
+       "amp_pct": 33.6806,
+       "freq_pass": false,
+       "amp_pass": false
+      }
+     },
+     "recovery_pp_ge_1mm": {
+      "n": 864,
+      "freq_within_0p5_pct_reported": 74.8843,
+      "freq_within_0p5_pct_any_prominence": 75.0,
+      "median_abs_freq_err_hz": 0.0248,
+      "detection_pct": 99.8843,
+      "amp_ratio_median": 0.6657,
+      "amp_ratio_iqr": [
+       0.6204,
+       0.7728
+      ],
+      "amp_within_25pct_pct": 29.0509
+     },
+     "freq_pct_by_band": {
+      "4-6": 100.0,
+      "7-9": 100.0,
+      "10-12": 24.6528
+     },
+     "measured_rate_median_hz": 19.9999,
+     "gate_abstains_low_rate_pct": 100.0,
+     "false_rhythm_pct_uninjected": 0.0,
+     "n_uninjected": 48
+    }
+   },
+   "pd_60": {
+    "n_drawings": 114,
+    "n_with_native_rhythm": 33,
+    "rhythm_agrees_pct": 90.9091,
+    "gate_abstains_low_rate_pct": 0.0,
+    "amp_log_ratio_median": 0.0112
+   },
+   "pd_30": {
+    "n_drawings": 114,
+    "n_with_native_rhythm": 33,
+    "rhythm_agrees_pct": 87.8788,
+    "gate_abstains_low_rate_pct": 100.0,
+    "amp_log_ratio_median": -0.0226
+   },
+   "pd_20": {
+    "n_drawings": 114,
+    "n_with_native_rhythm": 33,
+    "rhythm_agrees_pct": 87.8788,
+    "gate_abstains_low_rate_pct": 100.0,
+    "amp_log_ratio_median": -0.1063
+   }
+  },
+  "E4_speed_stress": {
+   "freq_hz": 5.0,
+   "pp_mm": 1.0,
+   "max_speed_mm_s": 40.0,
+   "confound": "time compression also shortens the drawing (fewer Welch segments)",
+   "dev": {
+    "x1": {
+     "n_injected": 84,
+     "speed_median_mm_s": 19.7726,
+     "recovery_all": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0009,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0133,
+      "amp_ratio_iqr": [
+       0.9852,
+       1.0366
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_all": 0.0,
+     "speed_gate_abstains_pct": 0.0,
+     "passes_other_gates_pct": 100.0,
+     "recovery_kept": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0009,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0133,
+      "amp_ratio_iqr": [
+       0.9852,
+       1.0366
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 0.0,
+     "n_null_kept": 14,
+     "n_null": 14
+    },
+    "x1.5": {
+     "n_injected": 84,
+     "speed_median_mm_s": 29.5905,
+     "recovery_all": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0021,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0365,
+      "amp_ratio_iqr": [
+       1.0079,
+       1.0842
+      ],
+      "amp_within_25pct_pct": 98.8095
+     },
+     "false_rhythm_pct_all": 14.2857,
+     "speed_gate_abstains_pct": 21.4286,
+     "passes_other_gates_pct": 100.0,
+     "recovery_kept": {
+      "n": 66,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0018,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0278,
+      "amp_ratio_iqr": [
+       1.001,
+       1.0615
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 9.0909,
+     "n_null_kept": 11,
+     "n_null": 14
+    },
+    "x2": {
+     "n_injected": 84,
+     "speed_median_mm_s": 39.3449,
+     "recovery_all": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 98.8095,
+      "freq_within_0p5_pct_any_prominence": 98.8095,
+      "median_abs_freq_err_hz": 0.0045,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.1074,
+      "amp_ratio_iqr": [
+       1.0458,
+       1.1675
+      ],
+      "amp_within_25pct_pct": 91.6667
+     },
+     "false_rhythm_pct_all": 42.8571,
+     "speed_gate_abstains_pct": 50.0,
+     "passes_other_gates_pct": 71.4286,
+     "recovery_kept": {
+      "n": 42,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0035,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0561,
+      "amp_ratio_iqr": [
+       1.0137,
+       1.0842
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 0.0,
+     "n_null_kept": 7,
+     "n_null": 14
+    },
+    "x3": {
+     "n_injected": 84,
+     "speed_median_mm_s": 58.757,
+     "recovery_all": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 89.2857,
+      "freq_within_0p5_pct_any_prominence": 89.2857,
+      "median_abs_freq_err_hz": 0.0145,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.2425,
+      "amp_ratio_iqr": [
+       1.0955,
+       1.4108
+      ],
+      "amp_within_25pct_pct": 54.7619
+     },
+     "false_rhythm_pct_all": 78.5714,
+     "speed_gate_abstains_pct": 85.7143,
+     "passes_other_gates_pct": 21.4286,
+     "recovery_kept": {
+      "n": 12,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0019,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0936,
+      "amp_ratio_iqr": [
+       1.0048,
+       1.1361
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 0.0,
+     "n_null_kept": 2,
+     "n_null": 14
+    },
+    "x4": {
+     "n_injected": 84,
+     "speed_median_mm_s": 78.1101,
+     "recovery_all": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 75.0,
+      "freq_within_0p5_pct_any_prominence": 78.5714,
+      "median_abs_freq_err_hz": 0.1321,
+      "detection_pct": 89.2857,
+      "amp_ratio_median": 1.3909,
+      "amp_ratio_iqr": [
+       1.2546,
+       1.6515
+      ],
+      "amp_within_25pct_pct": 23.8095
+     },
+     "false_rhythm_pct_all": 35.7143,
+     "speed_gate_abstains_pct": 85.7143,
+     "passes_other_gates_pct": 14.2857,
+     "recovery_kept": {
+      "n": 12,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0062,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.2076,
+      "amp_ratio_iqr": [
+       1.1485,
+       1.311
+      ],
+      "amp_within_25pct_pct": 58.3333
+     },
+     "false_rhythm_pct_kept": 0.0,
+     "n_null_kept": 2,
+     "n_null": 14
+    }
+   },
+   "heldout": {
+    "x1": {
+     "n_injected": 96,
+     "speed_median_mm_s": 15.2165,
+     "recovery_all": {
+      "n": 96,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0005,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.007,
+      "amp_ratio_iqr": [
+       0.9921,
+       1.0197
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_all": 0.0,
+     "speed_gate_abstains_pct": 6.25,
+     "passes_other_gates_pct": 93.75,
+     "recovery_kept": {
+      "n": 90,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0005,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.007,
+      "amp_ratio_iqr": [
+       0.9922,
+       1.0185
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 0.0,
+     "n_null_kept": 15,
+     "n_null": 16
+    },
+    "x1.5": {
+     "n_injected": 96,
+     "speed_median_mm_s": 22.7688,
+     "recovery_all": {
+      "n": 96,
+      "freq_within_0p5_pct_reported": 97.9167,
+      "freq_within_0p5_pct_any_prominence": 97.9167,
+      "median_abs_freq_err_hz": 0.0014,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.032,
+      "amp_ratio_iqr": [
+       1.003,
+       1.0588
+      ],
+      "amp_within_25pct_pct": 94.7917
+     },
+     "false_rhythm_pct_all": 6.25,
+     "speed_gate_abstains_pct": 12.5,
+     "passes_other_gates_pct": 81.25,
+     "recovery_kept": {
+      "n": 84,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.001,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0295,
+      "amp_ratio_iqr": [
+       1.0019,
+       1.0495
+      ],
+      "amp_within_25pct_pct": 98.8095
+     },
+     "false_rhythm_pct_kept": 7.1429,
+     "n_null_kept": 14,
+     "n_null": 16
+    },
+    "x2": {
+     "n_injected": 96,
+     "speed_median_mm_s": 30.236,
+     "recovery_all": {
+      "n": 96,
+      "freq_within_0p5_pct_reported": 94.7917,
+      "freq_within_0p5_pct_any_prominence": 94.7917,
+      "median_abs_freq_err_hz": 0.0036,
+      "detection_pct": 98.9583,
+      "amp_ratio_median": 1.0612,
+      "amp_ratio_iqr": [
+       1.0301,
+       1.149
+      ],
+      "amp_within_25pct_pct": 87.5
+     },
+     "false_rhythm_pct_all": 18.75,
+     "speed_gate_abstains_pct": 43.75,
+     "passes_other_gates_pct": 81.25,
+     "recovery_kept": {
+      "n": 54,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0016,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0362,
+      "amp_ratio_iqr": [
+       1.0129,
+       1.0585
+      ],
+      "amp_within_25pct_pct": 100.0
+     },
+     "false_rhythm_pct_kept": 11.1111,
+     "n_null_kept": 9,
+     "n_null": 16
+    },
+    "x3": {
+     "n_injected": 96,
+     "speed_median_mm_s": 45.2357,
+     "recovery_all": {
+      "n": 96,
+      "freq_within_0p5_pct_reported": 82.2917,
+      "freq_within_0p5_pct_any_prominence": 82.2917,
+      "median_abs_freq_err_hz": 0.0187,
+      "detection_pct": 98.9583,
+      "amp_ratio_median": 1.1635,
+      "amp_ratio_iqr": [
+       1.0811,
+       1.3317
+      ],
+      "amp_within_25pct_pct": 66.6667
+     },
+     "false_rhythm_pct_all": 68.75,
+     "speed_gate_abstains_pct": 50.0,
+     "passes_other_gates_pct": 50.0,
+     "recovery_kept": {
+      "n": 48,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0032,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.0992,
+      "amp_ratio_iqr": [
+       1.0579,
+       1.146
+      ],
+      "amp_within_25pct_pct": 93.75
+     },
+     "false_rhythm_pct_kept": 37.5,
+     "n_null_kept": 8,
+     "n_null": 16
+    },
+    "x4": {
+     "n_injected": 96,
+     "speed_median_mm_s": 60.2129,
+     "recovery_all": {
+      "n": 96,
+      "freq_within_0p5_pct_reported": 81.25,
+      "freq_within_0p5_pct_any_prominence": 81.25,
+      "median_abs_freq_err_hz": 0.0222,
+      "detection_pct": 93.75,
+      "amp_ratio_median": 1.3023,
+      "amp_ratio_iqr": [
+       1.1671,
+       1.6284
+      ],
+      "amp_within_25pct_pct": 43.75
+     },
+     "false_rhythm_pct_all": 56.25,
+     "speed_gate_abstains_pct": 75.0,
+     "passes_other_gates_pct": 50.0,
+     "recovery_kept": {
+      "n": 24,
+      "freq_within_0p5_pct_reported": 100.0,
+      "freq_within_0p5_pct_any_prominence": 100.0,
+      "median_abs_freq_err_hz": 0.0059,
+      "detection_pct": 100.0,
+      "amp_ratio_median": 1.1651,
+      "amp_ratio_iqr": [
+       1.1257,
+       1.2183
+      ],
+      "amp_within_25pct_pct": 87.5
+     },
+     "false_rhythm_pct_kept": 60.0,
+     "n_null_kept": 5,
+     "n_null": 16
+    }
+   },
+   "heldout_gate_kept_pooled": {
+    "n_injected_kept": 288,
+    "recovery": {
+     "n": 288,
+     "freq_within_0p5_pct_reported": 100.0,
+     "freq_within_0p5_pct_any_prominence": 100.0,
+     "median_abs_freq_err_hz": 0.0011,
+     "detection_pct": 100.0,
+     "amp_ratio_median": 1.0288,
+     "amp_ratio_iqr": [
+      1.0031,
+      1.0745
+     ],
+     "amp_within_25pct_pct": 97.9167
+    },
+    "n_uninjected_kept": 49,
+    "false_rhythm_pct_kept": 14.2857,
+    "n_uninjected_rejected_too_fast": 29,
+    "false_rhythm_pct_rejected_too_fast": 55.1724
+   }
+  },
+  "E5_baselines": {
+   "method_radial": "Longardner et al. 2024 style radial error (2 Hz zero-phase low-pass of r); frequency from the PSD of the radial residual; pp = pi * mean|e|",
+   "method_zero_cross": "zero-crossing rate of the band-passed principal-axis signal",
+   "linear": {
+    "n_trials": 864,
+    "freq_within_0p5_pct": {
+     "ours_2d": 100.0,
+     "radial": 100.0,
+     "zero_cross": 100.0
+    },
+    "paired_diff_ours_minus_radial_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "paired_diff_ours_minus_zero_cross_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "amp_ratio_median": {
+     "ours_2d": 0.9934,
+     "radial": 0.6475
+    },
+    "median_paired_abs_log_amp_err_radial_minus_ours": {
+     "est": 0.4146,
+     "ci95": [
+      0.411,
+      0.4183
+     ]
+    }
+   },
+   "radial": {
+    "n_trials": 864,
+    "freq_within_0p5_pct": {
+     "ours_2d": 100.0,
+     "radial": 100.0,
+     "zero_cross": 90.8565
+    },
+    "paired_diff_ours_minus_radial_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "paired_diff_ours_minus_zero_cross_pct_points": {
+     "est": 9.1435,
+     "ci95": [
+      7.4074,
+      11.1111
+     ]
+    },
+    "amp_ratio_median": {
+     "ours_2d": 0.9849,
+     "radial": 0.9939
+    },
+    "median_paired_abs_log_amp_err_radial_minus_ours": {
+     "est": -0.0032,
+     "ci95": [
+      -0.0045,
+      -0.0024
+     ]
+    }
+   },
+   "elliptical": {
+    "n_trials": 864,
+    "freq_within_0p5_pct": {
+     "ours_2d": 100.0,
+     "radial": 100.0,
+     "zero_cross": 100.0
+    },
+    "paired_diff_ours_minus_radial_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "paired_diff_ours_minus_zero_cross_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "amp_ratio_median": {
+     "ours_2d": 0.9957,
+     "radial": 0.8156
+    },
+    "median_paired_abs_log_amp_err_radial_minus_ours": {
+     "est": 0.1864,
+     "ci95": [
+      0.1714,
+      0.1995
+     ]
+    }
+   },
+   "all": {
+    "n_trials": 2592,
+    "freq_within_0p5_pct": {
+     "ours_2d": 100.0,
+     "radial": 100.0,
+     "zero_cross": 96.9522
+    },
+    "paired_diff_ours_minus_radial_pct_points": {
+     "est": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ]
+    },
+    "paired_diff_ours_minus_zero_cross_pct_points": {
+     "est": 3.0478,
+     "ci95": [
+      2.391,
+      3.7047
+     ]
+    },
+    "amp_ratio_median": {
+     "ours_2d": 0.9914,
+     "radial": 0.8185
+    },
+    "median_paired_abs_log_amp_err_radial_minus_ours": {
+     "est": 0.1775,
+     "ci95": [
+      0.1553,
+      0.1985
+     ]
+    }
+   }
+  },
+  "E6_pd_vs_control_exploratory": {
+   "label": "exploratory; 15 controls total; not diagnostic; one value per subject (mean over tests)",
+   "excluded_drawings": [
+    "P_05060004/t0: clock_reversal",
+    "P_09100005/t1: clock_reversal",
+    "H_P000-0024/t1: duplicate_of:H_P000-0025/t1",
+    "H_P000-0025/t1: duplicate_of:H_P000-0024/t1"
+   ],
+   "heldout": {
+    "n_control": 8,
+    "n_pd": 31,
+    "amp_pp_mm (log)": {
+     "auc": 0.8185,
+     "ci95": [
+      0.6613,
+      0.9476
+     ]
+    },
+    "band_power_mm2 (log)": {
+     "auc": 0.8427,
+     "ci95": [
+      0.7015,
+      0.9517
+     ]
+    },
+    "duration_s": {
+     "auc": 0.3145,
+     "ci95": [
+      0.1209,
+      0.5284
+     ]
+    },
+    "speed_mm_s": {
+     "auc": 0.7056,
+     "ci95": [
+      0.512,
+      0.8831
+     ]
+    },
+    "mean_radial_err_mm (Longardner)": {
+     "auc": 0.8065,
+     "ci95": [
+      0.6613,
+      0.9355
+     ]
+    }
+   },
+   "dev": {
+    "n_control": 7,
+    "n_pd": 30,
+    "amp_pp_mm (log)": {
+     "auc": 0.7571,
+     "ci95": [
+      0.581,
+      0.8952
+     ]
+    },
+    "band_power_mm2 (log)": {
+     "auc": 0.7571,
+     "ci95": [
+      0.5951,
+      0.8954
+     ]
+    },
+    "duration_s": {
+     "auc": 0.4333,
+     "ci95": [
+      0.2524,
+      0.6239
+     ]
+    },
+    "speed_mm_s": {
+     "auc": 0.619,
+     "ci95": [
+      0.4238,
+      0.8095
+     ]
+    },
+    "mean_radial_err_mm (Longardner)": {
+     "auc": 0.781,
+     "ci95": [
+      0.6,
+      0.919
+     ]
+    }
+   },
+   "all_subjects": {
+    "n_control": 15,
+    "n_pd": 61,
+    "amp_pp_mm (log)": {
+     "auc": 0.8,
+     "ci95": [
+      0.6863,
+      0.8984
+     ]
+    },
+    "band_power_mm2 (log)": {
+     "auc": 0.8011,
+     "ci95": [
+      0.6995,
+      0.8951
+     ]
+    },
+    "duration_s": {
+     "auc": 0.3497,
+     "ci95": [
+      0.2207,
+      0.494
+     ]
+    },
+    "speed_mm_s": {
+     "auc": 0.6809,
+     "ci95": [
+      0.5409,
+      0.7923
+     ]
+    },
+    "mean_radial_err_mm (Longardner)": {
+     "auc": 0.7891,
+     "ci95": [
+      0.6852,
+      0.8852
+     ]
+    }
+   },
+   "all_controls_vs_new_dataset_PD_only (same ~142 Hz clock)": {
+    "n_control": 15,
+    "n_pd": 36,
+    "amp_pp_mm (log)": {
+     "auc": 0.937,
+     "ci95": [
+      0.8574,
+      0.987
+     ]
+    },
+    "band_power_mm2 (log)": {
+     "auc": 0.9481,
+     "ci95": [
+      0.8814,
+      0.9944
+     ]
+    },
+    "duration_s": {
+     "auc": 0.2,
+     "ci95": [
+      0.0907,
+      0.3278
+     ]
+    },
+    "speed_mm_s": {
+     "auc": 0.8444,
+     "ci95": [
+      0.7351,
+      0.9389
+     ]
+    },
+    "mean_radial_err_mm (Longardner)": {
+     "auc": 0.9333,
+     "ci95": [
+      0.8463,
+      0.9852
+     ]
+    }
+   },
+   "pd_dominant_rhythm": {
+    "n_pd_drawings": 114,
+    "n_with_rhythm": 33,
+    "pct_with_rhythm": 28.9474,
+    "freq_median_hz": 4.5891,
+    "freq_iqr_hz": [
+     4.2536,
+     5.7311
+    ],
+    "freq_histogram": {
+     "4-5": 18,
+     "5-6": 6,
+     "6-7": 4,
+     "7-8": 3,
+     "8-9": 0,
+     "9-10": 0,
+     "10-11": 0,
+     "11-12": 0
+    },
+    "n_with_rhythm_and_gate_pass": 12,
+    "n_gate_pass": 68,
+    "control_drawings_with_rhythm": 0,
+    "n_control_drawings": 30
+   },
+   "sampling_rate_confound": {
+    "control/hw_dataset": {
+     "median_nominal_rate_hz": 142.8571,
+     "n_drawings": 30
+    },
+    "parkinson/hw_dataset": {
+     "median_nominal_rate_hz": 111.1111,
+     "n_drawings": 50
+    },
+    "parkinson/new_dataset": {
+     "median_nominal_rate_hz": 142.8571,
+     "n_drawings": 68
+    }
+   }
+  },
+  "E7_static_vs_dynamic": {
+   "label": "between-task (static vs dynamic spiral, same session), not test-retest; a lower bound on test-retest reliability",
+   "reference": "Elble & Ellenbogen 2017: tablet spiral pp amplitude ICC 0.97, MDC 51% of baseline over 2 days, 20 ET patients",
+   "heldout": {
+    "n_subjects": 35,
+    "icc_2_1": 0.9302,
+    "icc_ci95": [
+     0.8019,
+     0.9768
+    ],
+    "sem_log": 0.2564,
+    "mdc95_log": 0.7106,
+    "mdc95_pct_change": 103.5239,
+    "mean_log_diff_dynamic_minus_static": 0.0328
+   },
+   "all_subjects": {
+    "n_subjects": 68,
+    "icc_2_1": 0.9089,
+    "icc_ci95": [
+     0.8194,
+     0.9581
+    ],
+    "sem_log": 0.2531,
+    "mdc95_log": 0.7015,
+    "mdc95_pct_change": 101.6765,
+    "mean_log_diff_dynamic_minus_static": 0.0424
+   },
+   "parkinson_all": {
+    "n_subjects": 53,
+    "icc_2_1": 0.8924,
+    "icc_ci95": [
+     0.7519,
+     0.9522
+    ],
+    "sem_log": 0.2821,
+    "mdc95_log": 0.7819,
+    "mdc95_pct_change": 118.5656,
+    "mean_log_diff_dynamic_minus_static": 0.0766
+   },
+   "control_all": {
+    "n_subjects": 15,
+    "icc_2_1": 0.8998,
+    "icc_ci95": [
+     0.7136,
+     0.962
+    ],
+    "sem_log": 0.0958,
+    "mdc95_log": 0.2657,
+    "mdc95_pct_change": 30.4292,
+    "mean_log_diff_dynamic_minus_static": -0.0783
+   }
+  },
+  "E8_gate_real_data": {
+   "gate_cfg": {
+    "min_rate_hz": 42.0,
+    "max_gap_ms": 250.0,
+    "min_duration_s": 8.0,
+    "max_lifts": 1,
+    "min_coverage": 0.85,
+    "max_speed_mm_s": 40.0,
+    "max_template_dev_mm": 1.8,
+    "max_clock_backsteps": 0
+   },
+   "note": "no printed template exists for UCI, so coverage/off_template are not evaluated; strokes derived from gaps > 50 ms (see LIFT_GAP_MS)",
+   "control/dev": {
+    "n_drawings": 14,
+    "abstain_pct": 0.0,
+    "n_abstain": 0,
+    "reason_counts": {}
+   },
+   "control/heldout": {
+    "n_drawings": 16,
+    "abstain_pct": 12.5,
+    "n_abstain": 2,
+    "reason_counts": {
+     "lifts": 1,
+     "too_fast": 1
+    }
+   },
+   "parkinson/dev": {
+    "n_drawings": 57,
+    "abstain_pct": 43.8596,
+    "n_abstain": 25,
+    "reason_counts": {
+     "too_short": 13,
+     "too_fast": 20,
+     "lifts": 7
+    }
+   },
+   "parkinson/heldout": {
+    "n_drawings": 61,
+    "abstain_pct": 40.9836,
+    "n_abstain": 25,
+    "reason_counts": {
+     "clock": 2,
+     "lifts": 10,
+     "too_short": 8,
+     "too_fast": 13
+    }
+   },
+   "corrupted_drawings_gate": {
+    "P_05060004/t0": [
+     "clock"
+    ],
+    "P_09100005/t1": [
+     "clock",
+     "lifts"
+    ]
+   }
+  },
+  "audit_11hz": {
+   "drawings": [
+    {
+     "id": "P_05060004/t0",
+     "nominal_rate_hz": 111.1111,
+     "clock_jump_ms": -1309.0,
+     "samples_interleaved_after_sort": 146,
+     "old_sorting_clean": {
+      "freq_hz": 11.0059,
+      "prominence": 59.9269,
+      "amp_pp_mm": 0.1422,
+      "rms_mm": 0.2555,
+      "gate": []
+     },
+     "as_recorded": {
+      "freq_hz": 3.875,
+      "prominence": 0.0,
+      "amp_pp_mm": 0.1402,
+      "rms_mm": 0.1418,
+      "clock_backsteps": 146,
+      "gate": [
+       "clock"
+      ]
+     },
+     "file_order_repaired": {
+      "freq_hz": 3.875,
+      "prominence": 0.0,
+      "amp_pp_mm": 0.1386,
+      "rms_mm": 0.0646
+     }
+    },
+    {
+     "id": "P_09100005/t1",
+     "nominal_rate_hz": 111.1111,
+     "clock_jump_ms": -5633.0,
+     "samples_interleaved_after_sort": 626,
+     "old_sorting_clean": {
+      "freq_hz": 11.0143,
+      "prominence": 604.1873,
+      "amp_pp_mm": 0.1753,
+      "rms_mm": 1.4364,
+      "gate": [
+       "lifts"
+      ]
+     },
+     "as_recorded": {
+      "freq_hz": 3.875,
+      "prominence": 0.0,
+      "amp_pp_mm": 0.1617,
+      "rms_mm": 0.2777,
+      "clock_backsteps": 626,
+      "gate": [
+       "clock",
+       "lifts"
+      ]
+     },
+     "file_order_repaired": {
+      "freq_hz": 3.875,
+      "prominence": 0.0,
+      "amp_pp_mm": 0.1578,
+      "rms_mm": 0.0887
+     }
+    }
+   ],
+   "synthetic": [
+    {
+     "sample_period_ms": 9.0,
+     "sample_rate_hz": 111.1111,
+     "predicted_alias_hz": 11.1111,
+     "freq_hz": 11.0933,
+     "prominence": 20845854.1014
+    },
+    {
+     "sample_period_ms": 7.0,
+     "sample_rate_hz": 142.8571,
+     "predicted_alias_hz": 42.8571,
+     "freq_hz": 4.0,
+     "prominence": 0.0
+    }
+   ]
+  },
+  "E9_mutations": {
+   "table": {
+    "none": {
+     "freq_recovery": {
+      "green": true,
+      "detail": "100% reported within 0.5 Hz (n=12, need >=90%)"
+     },
+     "amp_recovery": {
+      "green": true,
+      "detail": "median amp ratio 0.99 (need 0.75-1.25)"
+     },
+     "specificity": {
+      "green": true,
+      "detail": "false rhythm 4% on gate-passing un-injected controls x1/x2 (n=23, need <=10%)"
+     },
+     "rate_gate": {
+      "green": true,
+      "detail": "100% of 20 Hz inputs abstain with low_rate (need 100%)"
+     },
+     "specificity_ungated (added post hoc)": {
+      "green": true,
+      "detail": "false rhythm 0% on all un-injected controls, no gate (n=16, need <=10%)"
+     }
+    },
+    "bandpass_identity": {
+     "freq_recovery": {
+      "green": true,
+      "detail": "100% reported within 0.5 Hz (n=12, need >=90%)"
+     },
+     "amp_recovery": {
+      "green": false,
+      "detail": "median amp ratio 3.30 (need 0.75-1.25)"
+     },
+     "specificity": {
+      "green": true,
+      "detail": "false rhythm 9% on gate-passing un-injected controls x1/x2 (n=23, need <=10%)"
+     },
+     "rate_gate": {
+      "green": true,
+      "detail": "100% of 20 Hz inputs abstain with low_rate (need 100%)"
+     },
+     "specificity_ungated (added post hoc)": {
+      "green": true,
+      "detail": "false rhythm 6% on all un-injected controls, no gate (n=16, need <=10%)"
+     }
+    },
+    "skip_resampling": {
+     "freq_recovery": {
+      "green": false,
+      "detail": "0% reported within 0.5 Hz (n=12, need >=90%)"
+     },
+     "amp_recovery": {
+      "green": true,
+      "detail": "median amp ratio 1.00 (need 0.75-1.25)"
+     },
+     "specificity": {
+      "green": true,
+      "detail": "false rhythm 0% on gate-passing un-injected controls x1/x2 (n=23, need <=10%)"
+     },
+     "rate_gate": {
+      "green": true,
+      "detail": "100% of 20 Hz inputs abstain with low_rate (need 100%)"
+     },
+     "specificity_ungated (added post hoc)": {
+      "green": true,
+      "detail": "false rhythm 0% on all un-injected controls, no gate (n=16, need <=10%)"
+     }
+    },
+    "no_band_edge_rejection": {
+     "freq_recovery": {
+      "green": true,
+      "detail": "100% reported within 0.5 Hz (n=12, need >=90%)"
+     },
+     "amp_recovery": {
+      "green": true,
+      "detail": "median amp ratio 0.99 (need 0.75-1.25)"
+     },
+     "specificity": {
+      "green": true,
+      "detail": "false rhythm 4% on gate-passing un-injected controls x1/x2 (n=23, need <=10%)"
+     },
+     "rate_gate": {
+      "green": true,
+      "detail": "100% of 20 Hz inputs abstain with low_rate (need 100%)"
+     },
+     "specificity_ungated (added post hoc)": {
+      "green": true,
+      "detail": "false rhythm 0% on all un-injected controls, no gate (n=16, need <=10%)"
+     }
+    },
+    "no_gate_rate_check": {
+     "freq_recovery": {
+      "green": true,
+      "detail": "100% reported within 0.5 Hz (n=12, need >=90%)"
+     },
+     "amp_recovery": {
+      "green": true,
+      "detail": "median amp ratio 0.99 (need 0.75-1.25)"
+     },
+     "specificity": {
+      "green": true,
+      "detail": "false rhythm 4% on gate-passing un-injected controls x1/x2 (n=23, need <=10%)"
+     },
+     "rate_gate": {
+      "green": false,
+      "detail": "0% of 20 Hz inputs abstain with low_rate (need 100%)"
+     },
+     "specificity_ungated (added post hoc)": {
+      "green": true,
+      "detail": "false rhythm 0% on all un-injected controls, no gate (n=16, need <=10%)"
+     }
+    }
+   },
+   "verdict": {
+    "bandpass_identity": {
+     "expected_red": "amp_recovery",
+     "caught": true,
+     "red_checks": [
+      "amp_recovery"
+     ]
+    },
+    "skip_resampling": {
+     "expected_red": "freq_recovery",
+     "caught": true,
+     "red_checks": [
+      "freq_recovery"
+     ]
+    },
+    "no_band_edge_rejection": {
+     "expected_red": "specificity",
+     "caught": false,
+     "red_checks": []
+    },
+    "no_gate_rate_check": {
+     "expected_red": "rate_gate",
+     "caught": true,
+     "red_checks": [
+      "rate_gate"
+     ]
+    }
+   },
+   "unmutated_all_green": true
+  }
+ },
+ "thresholds_match_metrics_py": true,
+ "failure_map": {
+  "columns": [
+   "Healthy controls (real, un-injected)",
+   "Injected tremor 4\u201312 Hz on controls",
+   "Parkinson's (real)",
+   "Essential tremor"
+  ],
+  "rows": [
+   {
+    "condition": "Pen on Wacom tablet (real)",
+    "cells": [
+     {
+      "status": "measured",
+      "text": "false rhythm 0/16 (held-out)",
+      "n": 16
+     },
+     {
+      "status": "measured",
+      "text": "\u00b10.5 Hz in 100%, amp \u00b125% 100%",
+      "n": 2592
+     },
+     {
+      "status": "measured",
+      "text": "rhythm in 33/114; exploratory",
+      "n": 114
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Small tremor 0.25\u20130.5 mm pp (tablet; floor 0.45 mm)",
+    "cells": [
+     {
+      "status": "measured",
+      "text": "same drawings as tablet row",
+      "n": 16
+     },
+     {
+      "status": "fails",
+      "text": "detected: 0.25 mm 4%, 0.5 mm 100%",
+      "n": 1728
+     },
+     {
+      "status": "untested",
+      "text": "no amplitude ground truth",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Simulated phone 60 Hz",
+    "cells": [
+     {
+      "status": "measured",
+      "text": "false rhythm 0% (simulated)",
+      "n": 48
+     },
+     {
+      "status": "measured",
+      "text": "\u00b10.5 Hz 100%, amp \u00b125% 100%",
+      "n": 864
+     },
+     {
+      "status": "measured",
+      "text": "rhythm agrees 91% vs native",
+      "n": 33
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Simulated 30 Hz",
+    "cells": [
+     {
+      "status": "abstains",
+      "text": "gate abstains 100% (<42 Hz)",
+      "n": 48
+     },
+     {
+      "status": "abstains",
+      "text": "abstains 100%; raw \u00b10.5 Hz 100%",
+      "n": 864
+     },
+     {
+      "status": "abstains",
+      "text": "gate abstains 100%",
+      "n": 114
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Simulated 20 Hz",
+    "cells": [
+     {
+      "status": "abstains",
+      "text": "gate abstains 100% (<42 Hz)",
+      "n": 48
+     },
+     {
+      "status": "abstains",
+      "text": "abstains 100%; raw \u00b10.5 Hz 75%",
+      "n": 864
+     },
+     {
+      "status": "abstains",
+      "text": "gate abstains 100%",
+      "n": 114
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Fast drawing \u00d72/\u00d73 (time-compressed)",
+    "cells": [
+     {
+      "status": "fails",
+      "text": "abstains 47%; false rhythm 24% kept",
+      "n": 32
+     },
+     {
+      "status": "measured",
+      "text": "speed gate abstains 47%; kept 100%",
+      "n": 192
+     },
+     {
+      "status": "untested",
+      "text": "PD drawings not compressed",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Finger on real phone",
+    "cells": [
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   },
+   {
+    "condition": "Stylus on real phone",
+    "cells": [
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no phone recordings yet",
+      "n": 0
+     },
+     {
+      "status": "untested",
+      "text": "no ET data exists (UCI has none)",
+      "n": 0
+     }
+    ]
+   }
+  ]
+ },
+ "headline": [
+  {
+   "claim": "Injected 4\u201312 Hz tremor \u22651 mm pp on real control drawings: frequency reported within \u00b10.5 Hz in linear 100%, radial 100%, elliptical 100%.",
+   "n": 2592,
+   "split": "held-out",
+   "caveat": "synthetic sinusoidal tremor on real tablet drawings; not patient tremor"
+  },
+  {
+   "claim": "Amplitude within \u00b125% of truth (pp \u22651 mm): linear 100%, radial 100%, elliptical 100%.",
+   "n": 2592,
+   "split": "held-out",
+   "caveat": "mm values assume 0.204 mm/px tablet scale"
+  },
+  {
+   "claim": "False 'dominant rhythm' on un-injected healthy drawings: 0/16 (prominence \u2265 9.5 and amplitude \u2265 0.45 mm).",
+   "n": 16,
+   "split": "held-out",
+   "caveat": "8 control subjects; CI is wide"
+  },
+  {
+   "claim": "Simulated 60 Hz phone sampling: \u00b10.5 Hz in 100%, amplitude \u00b125% in 100% (pp \u22651 mm).",
+   "n": 864,
+   "split": "held-out",
+   "caveat": "simulated phone sampling, not a phone; finger/stylus on a real phone untested"
+  },
+  {
+   "claim": "Linear-axis tremor vs a radial-only (Longardner-style) baseline: frequency \u00b10.5 Hz 100% vs 100%; amplitude ratio 0.99 vs 0.65.",
+   "n": 864,
+   "split": "held-out",
+   "caveat": "advantage is amplitude, not frequency; same synthetic injections"
+  },
+  {
+   "claim": "PD vs control, tremor amplitude AUC 0.82 (95% CI 0.66\u20130.95).",
+   "n": 39,
+   "split": "held-out",
+   "caveat": "exploratory, 8 controls; device clock differs by group; not diagnostic"
+  },
+  {
+   "claim": "Static vs dynamic spiral amplitude ICC(2,1) 0.93; MDC95 104% change.",
+   "n": 35,
+   "split": "held-out",
+   "caveat": "between-task, not test-retest; Elble 2017 reports MDC 51% test-retest in ET"
+  },
+  {
+   "claim": "Essential tremor, real phones: untested.",
+   "n": 0,
+   "split": "n/a",
+   "caveat": "UCI has no ET patients and no phone recordings"
+  }
+ ]
+}
