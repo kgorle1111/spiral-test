@@ -1,0 +1,74 @@
+[
+ {
+  "file": "uci-h_p000-0043-t0.json",
+  "label": "Parkinson's, large ~6 Hz tremor",
+  "group": "parkinson",
+  "subject": "H_p000-0043",
+  "test": "static spiral",
+  "n": 1810,
+  "expect": "ok:5.5-6.5"
+ },
+ {
+  "file": "uci-p_12060002-t1.json",
+  "label": "Parkinson's, clear ~5.7 Hz tremor",
+  "group": "parkinson",
+  "subject": "P_12060002",
+  "test": "dynamic spiral",
+  "n": 1908,
+  "expect": "ok:5.0-6.5"
+ },
+ {
+  "file": "uci-h_p000-0035-t1.json",
+  "label": "Parkinson's, ~7 Hz tremor",
+  "group": "parkinson",
+  "subject": "H_P000-0035",
+  "test": "dynamic spiral",
+  "n": 2425,
+  "expect": "ok:6.5-7.5"
+ },
+ {
+  "file": "uci-p_26060002-t0.json",
+  "label": "Parkinson's, wobble under the 0.45 mm floor",
+  "group": "parkinson",
+  "subject": "P_26060002",
+  "test": "static spiral",
+  "n": 3620,
+  "expect": "ok:none"
+ },
+ {
+  "file": "uci-h_p000-0011-t1.json",
+  "label": "Parkinson's, drawn too fast (rejected)",
+  "group": "parkinson",
+  "subject": "H_P000-0011",
+  "test": "dynamic spiral",
+  "n": 1606,
+  "expect": "redo"
+ },
+ {
+  "file": "uci-p_11120004-t0.json",
+  "label": "Parkinson's, pen lifted mid-spiral (rejected)",
+  "group": "parkinson",
+  "subject": "P_11120004",
+  "test": "static spiral",
+  "n": 2406,
+  "expect": "redo"
+ },
+ {
+  "file": "uci-c_0002-t0.json",
+  "label": "Control, no dominant rhythm",
+  "group": "control",
+  "subject": "C_0002",
+  "test": "static spiral",
+  "n": 3485,
+  "expect": "ok:none"
+ },
+ {
+  "file": "uci-c_0015-t0.json",
+  "label": "Control, steady hand",
+  "group": "control",
+  "subject": "C_0015",
+  "test": "static spiral",
+  "n": 2625,
+  "expect": "ok:none"
+ }
+]

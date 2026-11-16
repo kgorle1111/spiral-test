@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Spiral Test</title>
+<meta name="description" content="Trace a spiral on your phone. Measures tremor size (mm) and rhythm (Hz), refuses to guess on bad drawings, and turns a week of drawings into a note for your neurologist. Research prototype, not a medical device.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f3f5f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1424" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="brand" href="#/" aria-label="Spiral Test, home">
+    <img src="logo.svg" alt="" width="54" height="36">
+    <span>Spiral Test</span>
+  </a>
+  <nav class="topnav" aria-label="Main">
+    <a href="#/history" data-nav="history">History</a>
+    <a href="#/evidence" data-nav="evidence">Evidence</a>
+  </nav>
+  <button type="button" class="engine" id="engine" aria-live="polite" title="The analysis engine runs Python in your browser">
+    <i class="dot" aria-hidden="true"></i><span><span class="eng-l">Engine </span><span id="engine-text">starting</span></span>
+  </button>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- HOME -->
+  <section class="screen" id="screen-home" data-route="home" hidden>
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">For essential tremor · and the neurologist who asks "is it better?"</p>
+        <h1 tabindex="-1">Trace a spiral. Get a number your neurologist can use.</h1>
+        <p class="lede">About 15 seconds on your phone. The code measures tremor size in millimetres and rhythm in hertz, says <b>Redo</b> when the drawing can't be trusted, and turns a week of drawings into a trend and a short note.</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-big" href="#/start" id="start-btn">Start a test</a>
+          <a class="btn btn-secondary btn-big" href="#/real">Try it on a real recording</a>
+        </div>
+        <p class="tiny" id="cal-status"></p>
+      </div>
+      <figure class="hero-fig card" aria-labelledby="hero-cap">
+        <div class="hero-svg" id="hero-illus"></div>
+        <figcaption id="hero-cap" class="tiny">Illustration: a spiral with a 6 Hz tremor, unwound into a wave, then its spectrum. Your own drawing gets the same treatment.</figcaption>
+      </figure>
+    </div>
+
+    <div class="steps">
+      <div class="card step"><span class="num">1</span><h2>Draw</h2><p>Trace the printed spiral with one finger, slowly, without lifting.</p></div>
+      <div class="card step"><span class="num">2</span><h2>Measure or refuse</h2><p>Hz and mm from the drawing. If it was too fast, too short or too gappy, it says why and asks you to redo it.</p></div>
+      <div class="card step"><span class="num">3</span><h2>Trend</h2><p>A week of drawings becomes a trend, a verdict that ignores normal day-to-day noise, and a note to print.</p></div>
+    </div>
+
+    <div class="home-links">
+      <a class="link-card card" href="#/history"><b>History</b><span>Your saved drawings, the trend and the note for your neurologist.</span></a>
+      <a class="link-card card" href="#/evidence"><b>Evidence</b><span>Where the measurement has been tested, where it hasn't, and how it works.</span></a>
+      <a class="link-card card" href="#/calibrate"><b>Calibrate</b><span>Match a bank card to the screen so millimetres are real millimetres.</span></a>
+    </div>
+  </section>
+
+  <!-- CALIBRATE -->
+  <section class="screen" id="screen-calibrate" data-route="calibrate" hidden>
+    <p class="eyebrow">Step 1 of 2 · Calibrate</p>
+    <h1 tabindex="-1">Match a card to the screen</h1>
+    <p>Hold any bank or ID card <b>upright, face down</b>, on the screen with its top-left corner in the red corner below. Adjust until the outline's right edge matches the card's. Only the width matters; nothing on the card is read.</p>
+    <div class="cal-controls">
+      <button type="button" class="btn btn-icon" id="cal-minus" aria-label="Make outline narrower">−</button>
+      <label class="sr-only" for="cal-range">Outline width</label>
+      <input type="range" id="cal-range" min="2.5" max="11" step="0.01" value="6">
+      <button type="button" class="btn btn-icon" id="cal-plus" aria-label="Make outline wider">+</button>
+    </div>
+    <p class="mono tiny" id="cal-readout" aria-live="polite"></p>
+    <!-- Controls sit above the stage: a card held on the screen covers what is below its top edge. -->
+    <div class="cal-stage" id="cal-stage">
+      <div class="cal-card" id="cal-card" aria-hidden="true"><span>53.98 mm</span></div>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary" id="cal-save">It matches, save</button>
+      <button type="button" class="btn btn-ghost" id="cal-skip">Skip (uses your browser's guess, less accurate)</button>
+    </div>
+    <p class="tiny muted">Skipping uses the browser's 96 px per inch, which phones don't follow, so millimetre values can be off by up to about 2×. Frequency in Hz is unaffected. Results are marked "uncalibrated".</p>
+  </section>
+
+  <!-- DRAW -->
+  <section class="screen screen-draw" id="screen-draw" data-route="draw" hidden>
+    <div id="hand-pick">
+      <p class="eyebrow">Step 2 of 2 · Draw</p>
+      <h1 tabindex="-1">Which hand are you testing?</h1>
+      <div class="hand-row" role="group" aria-label="Hand">
+        <button type="button" class="btn btn-hand" data-hand="right"><span class="hand-ico" aria-hidden="true">R</span>Right hand</button>
+        <button type="button" class="btn btn-hand" data-hand="left"><span class="hand-ico" aria-hidden="true">L</span>Left hand</button>
+      </div>
+      <p class="tiny muted">Rest your phone flat on a table. Trace from the red dot outward along the grey line, slowly and without lifting, about 15 seconds. <a href="#/calibrate">Recalibrate</a></p>
+    </div>
+    <div id="draw-area" hidden>
+      <div class="draw-head">
+        <p class="draw-instr" id="draw-instr">Start at the red dot. Follow the line outward, slowly.</p>
+        <span class="mono tiny" id="draw-live" aria-live="off">0.0 s · – pts/s</span>
+      </div>
+      <div class="draw-stage" id="draw-stage">
+        <canvas id="draw-canvas" aria-label="Drawing area with a printed spiral. Trace it with one finger or the mouse."></canvas>
+      </div>
+      <div class="draw-bar">
+        <button type="button" class="btn btn-ghost" id="draw-cancel">Cancel</button>
+        <button type="button" class="btn btn-secondary" id="draw-clear">Clear</button>
+        <button type="button" class="btn btn-primary" id="draw-done" disabled>Done</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="screen-result" data-route="result" hidden>
+    <div id="result-source"></div>
+    <div id="result-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <div id="result-body"></div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="screen" id="screen-history" data-route="history" hidden>
+    <p class="eyebrow no-print">Stays on this device</p>
+    <h1 tabindex="-1" class="no-print">History</h1>
+    <div class="tabs" role="tablist" aria-label="Hand">
+      <button type="button" role="tab" id="tab-right" aria-controls="hist-panel" data-hand="right">Right hand</button>
+      <button type="button" role="tab" id="tab-left" aria-controls="hist-panel" data-hand="left">Left hand</button>
+    </div>
+    <div id="hist-panel" role="tabpanel"></div>
+    <div class="card hist-tools">
+      <h2>Your data</h2>
+      <p class="muted">Drawings never leave this device unless you export them. Exporting is your decision.</p>
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="hist-export">Export JSON</button>
+        <label class="btn btn-secondary" for="hist-import">Import JSON</label>
+        <input type="file" id="hist-import" accept="application/json,.json" class="sr-only">
+        <button type="button" class="btn btn-danger" id="hist-delete">Delete all</button>
+      </div>
+      <p id="hist-msg" role="status" class="tiny"></p>
+    </div>
+  </section>
+
+  <!-- REAL RECORDING -->
+  <section class="screen" id="screen-real" data-route="real" hidden>
+    <p class="eyebrow">Real data · not a phone</p>
+    <h1 tabindex="-1">Try it on a real recording</h1>
+    <p>These spirals were drawn with a <b>pen on a Wacom tablet</b> by people with Parkinson's and by controls, from a public research dataset. There are <b>no essential tremor recordings</b> in it. The same Python code that analyses your phone drawing analyses these.</p>
+    <p class="tiny muted">The tablet reports pixels, not millimetres. We assume 0.204 mm per pixel (Wacom Cintiq 12WX), so every mm value here carries that assumption. Hz values don't depend on it.</p>
+    <div id="real-list" class="real-list"></div>
+    <div id="real-replay" class="card" hidden>
+      <div class="replay-head">
+        <h2 id="real-title">Replay</h2>
+        <span class="mono tiny" id="real-clock">0.0 s</span>
+      </div>
+      <canvas id="real-canvas" aria-label="Replay of the recorded spiral"></canvas>
+      <div class="row">
+        <button type="button" class="btn btn-secondary" id="real-speed" aria-pressed="false">Play at 2×</button>
+        <button type="button" class="btn btn-ghost" id="real-skip">Skip to result</button>
+      </div>
+    </div>
+    <p class="attr">Data: Isenkul, Sakar &amp; Kursun (2014), <a href="https://archive.ics.uci.edu/dataset/395/parkinson+disease+spiral+drawings+using+digitized+graphics+tablet" rel="noopener">UCI Machine Learning Repository dataset 395</a>, CC BY 4.0.</p>
+  </section>
+
+  <!-- EVIDENCE -->
+  <section class="screen" id="screen-evidence" data-route="evidence" hidden>
+    <p class="eyebrow">Where it works, where it doesn't</p>
+    <h1 tabindex="-1">Evidence</h1>
+    <div id="ev-results"></div>
+    <div class="card">
+      <h2>Method</h2>
+      <ol class="method">
+        <li>Points from the screen (Pointer Events, with coalesced events where the browser offers them) are converted to millimetres with your card calibration.</li>
+        <li>The trace is resampled to a uniform 100 Hz grid.</li>
+        <li>A 2-D band-pass keeps 3.5–12 Hz movement (raised-cosine edges, 2.5→3.5 Hz and 12→14 Hz), which removes the slow drawing motion and leaves the tremor.</li>
+        <li>A Welch spectrum (4 s Hann segments, 0.25 Hz bins) of x and y power combined. The peak in 4–12 Hz is reported only if it stands at least <span id="ev-prom">4</span>× above the median of the band; otherwise "no dominant rhythm".</li>
+        <li>Amplitude is peak-to-peak along the local principal axis of the filtered movement in 0.5 s windows (median over windows).</li>
+        <li>Before any number is shown, a quality gate checks the drawing. These rules are read live from the Python code running on this page:</li>
+      </ol>
+      <div id="ev-gate" class="gate-table"><p class="tiny muted">Waiting for the analysis engine…</p></div>
+      <p class="tiny muted">The change verdict in History compares the last 7 days with the 7 before, on log amplitude, and calls a change only if it exceeds both your own day-to-day variation and a published minimal-detectable-change floor (Elble &amp; Ellenbogen 2017). It needs at least 3 drawings in each week.</p>
+    </div>
+    <div class="card">
+      <h2>Limitations</h2>
+      <ul>
+        <li>Not tested on anyone with essential tremor yet. The public data has Parkinson's and controls only, drawn with a pen on a tablet, not a finger on a phone.</li>
+        <li>Finger tracing on glass is not pen on paper. Phones report touch at different rates; some browsers send too few points, and the app then refuses to measure.</li>
+        <li>Spiral drawing captures action tremor. It does not measure rest tremor, the Parkinson's hallmark.</li>
+        <li>It never diagnoses. It measures and trends; your neurologist decides.</li>
+        <li>Millimetres depend on the card calibration. Uncalibrated results are labelled.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Data and code</h2>
+      <p>Real recordings: Isenkul, Sakar &amp; Kursun (2014), <a href="https://archive.ics.uci.edu/dataset/395/parkinson+disease+spiral+drawings+using+digitized+graphics+tablet" rel="noopener">UCI dataset 395</a>, CC BY 4.0. Analysis runs <span class="mono">spiral/metrics.py</span> and <span class="mono">spiral/trend.py</span> unchanged, in your browser, with <a href="https://pyodide.org" rel="noopener">Pyodide</a> 0.28.3 and NumPy. No server sees your drawings.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p><b>Research prototype · not a medical device · not for diagnosis.</b> Drawings stay on this device.</p>
+</footer>
+
+<script src="charts.js"></script>
+<script src="engine.js"></script>
+<script src="draw.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
